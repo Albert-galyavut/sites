@@ -49,7 +49,7 @@
       font-weight: 500;
       line-height: 1.08;
     }
-    h1 { max-width: 820px; font-size: clamp(3rem, 8vw, 6.7rem); letter-spacing: -.055em; }
+    h1 { font-size: clamp(4rem, 7.4vw, 7.2rem); letter-spacing: -.06em; }
     h2 { max-width: 780px; font-size: clamp(2.15rem, 5vw, 4.2rem); letter-spacing: -.04em; }
     h3 { font-size: clamp(1.45rem, 2.5vw, 2rem); }
     p { margin: 0; }
@@ -75,14 +75,13 @@
       inset: 0;
       background: linear-gradient(90deg, rgba(11, 42, 49, .76) 0%, rgba(11, 42, 49, .51) 52%, rgba(11, 42, 49, .24) 100%);
     }
-    .nav { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding-top: 30px; }
-    .logo { font-family: Georgia, serif; font-size: 1.15rem; font-weight: 700; text-decoration: none; }
-    .nav-phone { font-weight: 800; text-decoration: none; }
-    .hero-content { position: relative; z-index: 2; padding: 110px 0 140px; }
-    .hero .eyebrow { color: #d6f2ef; }
-    .hero h1 em { color: #ffd277; font-style: italic; font-weight: 400; }
-    .hero-lead { max-width: 610px; margin-top: 28px; font-size: clamp(1.12rem, 2.2vw, 1.42rem); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+    .hero-content { position: relative; z-index: 2; display: grid; min-height: 100vh; grid-template-columns: minmax(340px, 1fr) 2fr; gap: clamp(50px, 9vw, 150px); align-items: center; padding-block: 70px; }
+    .hero-title { color: #fff; }
+    .hero-title span { display: block; }
+    .hero-kicker { margin-top: 24px; color: #d6f2ef; font-size: .78rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    .hero-copy { max-width: 430px; margin-top: 34px; font-size: clamp(1rem, 1.45vw, 1.18rem); }
+    .hero-copy p + p { margin-top: 12px; }
+    .hero-actions { display: grid; width: min(100%, 360px); gap: 14px; justify-self: end; }
     .button {
       display: inline-flex;
       min-height: 56px;
@@ -102,8 +101,9 @@
     .button:hover { transform: translateY(-2px); background: var(--sea); }
     .button-secondary { border-color: #fff; background: rgba(255,255,255,.08); color: #fff; }
     .button-secondary:hover { background: rgba(255,255,255,.2); }
-    .quick-facts { display: flex; flex-wrap: wrap; gap: 12px 26px; margin-top: 45px; font-size: .96rem; font-weight: 700; }
-    .quick-facts span::before { content: "●"; margin-right: 9px; color: var(--coral); font-size: .7em; }
+    .hero-phone { min-height: 72px; border-color: rgba(255,255,255,.75); background: rgba(11,42,49,.56); font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.35rem, 2.5vw, 2rem); }
+    .hero-book { min-height: 62px; border-color: var(--sun); background: var(--sun); color: #243c43; }
+    .hero-book:hover { background: #ffd277; }
 
     section { padding: 110px 0; }
     .section-intro { display: grid; grid-template-columns: 1fr .75fr; gap: 70px; align-items: end; margin-bottom: 52px; }
@@ -185,11 +185,14 @@
     @media (max-width: 760px) {
       body { font-size: 16px; }
       .container { width: min(100% - 28px, 1120px); }
-      .nav { padding-top: 20px; }
-      .nav-phone { font-size: .86rem; }
       .hero { min-height: 100svh; }
-      .hero-content { padding-top: 95px; }
-      .hero-actions, .hero-actions .button { width: 100%; }
+      .hero::before { background: rgba(11,42,49,.64); }
+      .hero-content { min-height: 100svh; grid-template-columns: 1fr; gap: 44px; align-content: center; padding-block: 55px; }
+      .hero-title { font-size: clamp(3.6rem, 18vw, 5.8rem); }
+      .hero-kicker { letter-spacing: .14em; }
+      .hero-copy { margin-top: 26px; }
+      .hero-actions { width: 100%; justify-self: stretch; }
+      .hero-actions .button { width: 100%; }
       section { padding: 78px 0; }
       .section-intro, .location-grid, .room-grid, .grounds-layout, .contact-grid { grid-template-columns: 1fr; gap: 20px; }
       .section-intro { gap: 24px; margin-bottom: 36px; }
@@ -206,10 +209,7 @@
     }
 
     @media (max-width: 420px) {
-      .logo { font-size: 1rem; }
-      .nav-phone { font-size: .78rem; }
       .feature-list { grid-template-columns: 1fr; }
-      .quick-facts { display: grid; gap: 8px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -221,22 +221,18 @@
 <body>
   <header class="hero">
     <img class="hero-background" src="img/bereg.jpg" alt="Песчаный берег Азовского моря у станицы Голубицкой" loading="lazy">
-    <nav class="nav container" aria-label="Основная навигация">
-      <a class="logo" href="#top">Азовский берег</a>
-      <a class="nav-phone" href="tel:+79297908845">+7 929 790-88-45</a>
-    </nav>
     <div class="hero-content container" id="top">
-      <p class="eyebrow">Гостевой дом · Голубицкая</p>
-      <h1>Отдых у <em>Азовского моря</em> всей семьёй</h1>
-      <p class="hero-lead">Уютный гостевой дом на 8 номеров, вторая береговая линия. До пляжа — всего 5 минут пешком.</p>
-      <div class="hero-actions">
-        <a class="button" href="#contacts">Узнать свободные даты</a>
-        <a class="button button-secondary" href="#rooms">Посмотреть номера и цены</a>
+      <div class="hero-main">
+        <h1 class="hero-title"><span>Азовский</span><span>берег</span></h1>
+        <p class="hero-kicker">Гостевой дом · Голубицкая</p>
+        <div class="hero-copy">
+          <p>8 уютных номеров на второй береговой линии.</p>
+          <p>До моря 300 метров. Сезон — с мая по сентябрь.</p>
+        </div>
       </div>
-      <div class="quick-facts" aria-label="Краткая информация">
-        <span>300 метров до моря</span>
-        <span>от 1 800 ₽ в сутки</span>
-        <span>май — сентябрь</span>
+      <div class="hero-actions">
+        <a class="button hero-phone" href="tel:+79297908845">+7 929 790-88-45</a>
+        <a class="button hero-book" href="#contacts">Забронировать</a>
       </div>
     </div>
   </header>
@@ -259,6 +255,36 @@
           <figure class="location-photo">
             <img src="img/polet.jpg" alt="Вид с высоты на песчаную косу и побережье Азовского моря" loading="lazy">
             <figcaption>До моря 300 метров</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="nearby" id="nearby">
+      <div class="container">
+        <div class="section-intro">
+          <div>
+            <p class="eyebrow">Куда съездить</p>
+            <h2>Развлечения рядом</h2>
+          </div>
+          <p class="section-copy">Море можно чередовать с прогулками, активным отдыхом и семейными поездками по окрестностям Голубицкой.</p>
+        </div>
+        <div class="nearby-grid">
+          <figure class="nearby-card">
+            <img src="img/lotos.jpg" alt="Розовый цветок лотоса в Долине лотосов" loading="lazy">
+            <figcaption>Долина лотосов</figcaption>
+          </figure>
+          <figure class="nearby-card">
+            <img src="img/surf.jpg" alt="Виндсёрферы с яркими парусами на Азовском море" loading="lazy">
+            <figcaption>Виндсёрфинг и кайт</figcaption>
+          </figure>
+          <figure class="nearby-card">
+            <img src="img/akvapark.jpg" alt="Разноцветные водные горки и бассейн аквапарка" loading="lazy">
+            <figcaption>Аквапарк</figcaption>
+          </figure>
+          <figure class="nearby-card">
+            <img src="img/zoopark.jpg" alt="Вход в контактный зоопарк «Планета обезьян»" loading="lazy">
+            <figcaption>Контактный зоопарк</figcaption>
           </figure>
         </div>
       </div>
@@ -326,36 +352,6 @@
             <li>Бесплатная парковка</li>
             <li>Wi-Fi</li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="nearby" id="nearby">
-      <div class="container">
-        <div class="section-intro">
-          <div>
-            <p class="eyebrow">Куда съездить</p>
-            <h2>Развлечения рядом</h2>
-          </div>
-          <p class="section-copy">Море можно чередовать с прогулками, активным отдыхом и семейными поездками по окрестностям Голубицкой.</p>
-        </div>
-        <div class="nearby-grid">
-          <figure class="nearby-card">
-            <img src="img/lotos.jpg" alt="Розовый цветок лотоса в Долине лотосов" loading="lazy">
-            <figcaption>Долина лотосов</figcaption>
-          </figure>
-          <figure class="nearby-card">
-            <img src="img/surf.jpg" alt="Виндсёрферы с яркими парусами на Азовском море" loading="lazy">
-            <figcaption>Виндсёрфинг и кайт</figcaption>
-          </figure>
-          <figure class="nearby-card">
-            <img src="img/akvapark.jpg" alt="Разноцветные водные горки и бассейн аквапарка" loading="lazy">
-            <figcaption>Аквапарк</figcaption>
-          </figure>
-          <figure class="nearby-card">
-            <img src="img/zoopark.jpg" alt="Вход в контактный зоопарк «Планета обезьян»" loading="lazy">
-            <figcaption>Контактный зоопарк</figcaption>
-          </figure>
         </div>
       </div>
     </section>
